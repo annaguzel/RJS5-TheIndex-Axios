@@ -32,19 +32,14 @@ class App extends Component {
   }
 
   selectAuthor = async author => {
-    let author_id = author.id;
+    this.setState({ loading: true });
     try {
-      const response = await axios.get(
-        `https://the-index-api.herokuapp.com/api/authors/${author_id}/`
+      let response = await axios.get(
+        `https://the-index-api.herokuapp.com/api/authors/${author.id}/`
       );
-      const author=response.data;
-
-      this.setState({
-        currentAuthor: author,
-        loading: false
-      });
-    } catch (error) {
-      console.error(error);
+      this.setState({ currentAuthor: response.data, loading: false });
+    } catch (errors) {
+      console.log(errors);
     }
   };
 
